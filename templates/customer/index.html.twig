@@ -1,0 +1,35 @@
+{% extends('base.html.twig') %}
+{% block body %}
+    {% for message in app.flashes('customer') %}
+        <div class="alert alert-secondary">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h2 class="my-5 float-left">List of Customers</h2>
+    <a href="{{ path('customer@create') }}" class="btn btn-lg btn-primary float-right my-5">Create new customer</a>
+    <div class="clearfix"></div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <th scope="row">{{ customer.id }}</th>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <a href="{{ path('customer@show', {id: customer.id}) }}" class="btn btn-sm btn-primary">Show</a>
+                    <a href="{{ path('customer@update', {id: customer.id}) }}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{{ path('customer@delete', {id: customer.id}) }}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
